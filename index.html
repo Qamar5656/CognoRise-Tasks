@@ -1,35 +1,38 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculator</title>
-    <link rel="stylesheet" href="style2.css">
+    <title>Currency Converter</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="calculator">
-        <h1>Calculator</h1>
-        <input type="text" id="display" readonly>
-        <div class="keys">
-            <button onclick="appendNumber('7')">7</button>
-            <button onclick="appendNumber('8')">8</button>
-            <button onclick="appendNumber('9')">9</button>
-            <button onclick="setOperator('+')">+</button>
-            <button onclick="appendNumber('4')">4</button>
-            <button onclick="appendNumber('5')">5</button>
-            <button onclick="appendNumber('6')">6</button>
-            <button onclick="setOperator('-')">-</button>
-            <button onclick="appendNumber('1')">1</button>
-            <button onclick="appendNumber('2')">2</button>
-            <button onclick="appendNumber('3')">3</button>
-            <button onclick="setOperator('*')">*</button>
-            <button onclick="appendNumber('0')">0</button>
-            <button onclick="appendNumber('.')">.</button>
-            <button onclick="calculate()">=</button>
-            <button onclick="clearDisplay()">C</button>
-        </div>
+    <div class="converter">
+        <h2 class="text-center">CURRENCY CONVERTER</h2>
+    <label for="amount">Amount:</label>
+    <input type="number" id="amount" placeholder="Enter amount...">
+    <div class="options">
+        <label for="from">From:</label>
+        <select id="from">
+            <option class="currency" value="USD">USD</option>
+            <option class="currency" value="EUR">EUR</option>
+        <option class="currency" value="GBP">GBP</option>
+        <option class="currency" value="PKR">PKR</option>
+        <!-- Add more currency options as needed -->
+    </select>
+    <label for="to">To:</label>
+    <select id="to">
+        <option class="currency" value="USD">USD</option>
+        <option class="currency" value="EUR">EUR</option>
+        <option class="currency" value="GBP">GBP</option>
+        <option class="currency" value="PKR">PKR</option>
+        <!-- Add more currency options as needed -->
+    </select>
     </div>
-    <script src="script.js"></script>
+    <button onclick="convertCurrency()">Convert</button>
+    <div id="result"></div>
+</div>
+<script src="script.js"></script>
 </body>
 </html>

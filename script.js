@@ -1,72 +1,21 @@
+function convertCurrency() {
+    var amount = parseFloat(document.getElementById("amount").value);
+    var fromCurrency = document.getElementById("from").value;
+    var toCurrency = document.getElementById("to").value;
 
-// const display= document.getElementById('display');
+    // Replace the following with your own API endpoint for currency conversion
+    var apiUrl = "https://api.exchangerate-api.com/v4/latest/" + fromCurrency;
 
-// function opertaion(input){
-// display.value += input;
-// }
-
-// function clearscreen(){
-// display.value= "";
-// }
-
-// function equal(){
-//     document.value= eval(display.value);
-// }
-
-let display = document.getElementById('display');
-let currentOperand = '';
-let previousOperand = '';
-let operation = undefined;
-
-function appendNumber(number) {
-    currentOperand += number;
-    updateDisplay();
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            var exchangeRate = data.rates[toCurrency];
+            var convertedAmount = amount * exchangeRate;
+            document.getElementById("result").innerHTML = amount.toFixed(2) + " " + fromCurrency + " = " + convertedAmount.toFixed(2) + " " + toCurrency;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
 }
 
-function setOperator(operator) {
-    if (currentOperand === '') return;
-    if (previousOperand !== '') {
-        calculate();
-    }
-    operation = operator;
-    previousOperand = currentOperand;
-    currentOperand = '';
-}
 
-function calculate() {
-    let computation;
-    const prev = parseFloat(previousOperand);
-    const current = parseFloat(currentOperand);
-    if (isNaN(prev) || isNaN(current)) return;
-    switch (operation) {
-        case '+':
-            computation = prev + current;
-            break;
-        case '-':
-            computation = prev - current;
-            break;
-        case '*':
-            computation = prev * current;
-            break;
-        case '/':
-            computation = prev / current;
-            break;
-        default:
-            return;
-    }
-    currentOperand = computation;
-    operation = undefined;
-    previousOperand = '';
-    updateDisplay();
-}
-
-function clearDisplay() {
-    currentOperand = '';
-    previousOperand = '';
-    operation = undefined;
-    updateDisplay();
-}
-
-function updateDisplay() {
-    display.value = currentOperand;
-}
