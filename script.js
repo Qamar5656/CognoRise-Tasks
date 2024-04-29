@@ -1,20 +1,72 @@
 
-function calculateBMI(){
-    var height= (document.getElementById('height').value)/100;
-    var weight= (document.getElementById('weight').value);
-    var bmi= weight / (height * height);
-    document.getElementById('result').innerHTML="Your BMI is " + bmi.toFixed('2');
+// const display= document.getElementById('display');
 
-    if(bmi <= 17){
-        document.getElementById('message').innerHTML="Underweight";
+// function opertaion(input){
+// display.value += input;
+// }
+
+// function clearscreen(){
+// display.value= "";
+// }
+
+// function equal(){
+//     document.value= eval(display.value);
+// }
+
+let display = document.getElementById('display');
+let currentOperand = '';
+let previousOperand = '';
+let operation = undefined;
+
+function appendNumber(number) {
+    currentOperand += number;
+    updateDisplay();
+}
+
+function setOperator(operator) {
+    if (currentOperand === '') return;
+    if (previousOperand !== '') {
+        calculate();
     }
-    else if(bmi >=17.1 && bmi<=20){
-        document.getElementById('message').innerHTML="Good Health";
+    operation = operator;
+    previousOperand = currentOperand;
+    currentOperand = '';
+}
+
+function calculate() {
+    let computation;
+    const prev = parseFloat(previousOperand);
+    const current = parseFloat(currentOperand);
+    if (isNaN(prev) || isNaN(current)) return;
+    switch (operation) {
+        case '+':
+            computation = prev + current;
+            break;
+        case '-':
+            computation = prev - current;
+            break;
+        case '*':
+            computation = prev * current;
+            break;
+        case '/':
+            computation = prev / current;
+            break;
+        default:
+            return;
     }
-    else if(bmi >=20.1 && bmi<=25){
-        document.getElementById('message').innerHTML="Overweight";
-    }
-    else{
-        document.getElementById('message').innerHTML="Not Good";
-    }
+    currentOperand = computation;
+    operation = undefined;
+    previousOperand = '';
+    updateDisplay();
+}
+
+function clearDisplay() {
+    currentOperand = '';
+    previousOperand = '';
+    operation = undefined;
+    updateDisplay();
+}
+
+function updateDisplay() {
+    display.value = currentOperand;
 }
